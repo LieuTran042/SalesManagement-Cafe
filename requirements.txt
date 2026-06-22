@@ -1,0 +1,13 @@
+# ==========================================
+# File: requirements.txt
+# Mô tả: Danh sách các thư viện cần cài đặt
+# ==========================================
+
+Flask==3.1.1                    # Framework web chính
+Flask-MySQLdb==2.0.0            # Kết nối Flask với MySQL
+Flask-Login==0.6.3              # Quản lý đăng nhập/phiên người dùng
+Flask-WTF==1.2.2                # Xử lý form và bảo mật CSRF
+WTForms==3.2.1                  # Tạo và validate form
+Werkzeug==3.1.3                 # Hỗ trợ mã hóa mật khẩu
+mysqlclient==2.2.7              # Driver kết nối MySQL
+
