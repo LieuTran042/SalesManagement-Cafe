@@ -1,0 +1,151 @@
+<!--
+==========================================
+File: templates/users.html
+Mô tả: Hiển thị danh sách users đã đăng ký (debug/admin view)
+       - Bảng users với các cột: ID, Username, Email, Password (masked)
+       - Cho phép xóa user
+       - Có thống kê tổng số users
+==========================================
+-->
+{% extends "base.html" %}
+
+{% block title %}Users List - Coffee Shop{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0">
+        <i class="bi bi-people-fill text-primary"></i> Users Management
+    </h2>
+    <a href="/register" class="btn btn-coffee">
+        <i class="bi bi-plus-circle"></i> Add New User
+    </a>
+</div>
+
+<!-- Stats Cards -->
+<div class="row g-3 mb-4">
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm" style="border-radius: 12px;">
+            <div class="card-body text-center">
+                <i class="bi bi-people-fill display-5 text-primary"></i>
+                <h3 class="mt-2 mb-0">{{ users|length }}</h3>
+                <p class="text-muted mb-0">Total Users</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm" style="border-radius: 12px;">
+            <div class="card-body text-center">
+                <i class="bi bi-envelope-fill display-5 text-success"></i>
+                <h3 class="mt-2 mb-0">{{ users|length }}</h3>
+                <p class="text-muted mb-0">Verified Emails</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm" style="border-radius: 12px;">
+            <div class="card-body text-center">
+                <i class="bi bi-clock-fill display-5 text-warning"></i>
+                <h3 class="mt-2 mb-0">{{ latest_user_time }}</h3>
+                <p class="text-muted mb-0">Latest Registration</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Users Table -->
+<div class="card shadow-sm border-0" style="border-radius: 12px;">
+    <div class="card-header bg-white py-3">
+        <h5 class="mb-0">
+            <i class="bi bi-table"></i> Users List
+        </h5>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead style="background: #FFF8E7; color: #4B3621;">
+                    <tr>
+                        <th class="py-3">#</th>
+                        <th class="py-3">
+                            <i class="bi bi-person"></i> Username
+                        </th>
+                        <th class="py-3">
+                            <i class="bi bi-envelope"></i> Email
+                        </th>
+                        <th class="py-3">
+                            <i class="bi bi-lock"></i> Password
+                        </th>
+                        <th class="py-3">
+                            <i class="bi bi-shield-check"></i> Status
+                        </th>
+                        <th class="py-3 text-center">
+                            <i class="bi bi-gear"></i> Actions
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if users %}
+                        {% for user in users %}
+                        <tr>
+                            <td><strong>#{{ loop.index }}</strong></td>
+                            <td>
+                                <i class="bi bi-person-circle text-primary"></i>
+                                <strong>{{ user.username }}</strong>
+                            </td>
+                            <td>
+                                <i class="bi bi-envelope text-muted"></i>
+                                {{ user.email }}
+                            </td>
+                            <td>
+                                <code style="background: #f5f5f5; padding: 2px 8px; border-radius: 4px;">
+                                    {{ user.masked_password }}
+                                </code>
+                            </td>
+                            <td>
+                                <span class="badge bg-success">
+                                    <i class="bi bi-check-circle"></i> Active
+                                </span>
+                            </td>
+                            <td class="text-center">
+                                <form method="POST" action="/users/delete/{{ user.username }}"
+                                      style="display: inline;"
+                                      onsubmit="return confirm('Delete user {{ user.username }}?');">
+                                    <button type="submit" class="btn btn-sm btn-danger">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="6" class="text-center py-5 text-muted">
+                                <i class="bi bi-inbox display-1 d-block mb-3 opacity-50"></i>
+                                <h5>No users registered yet</h5>
+                                <p class="mb-0">
+                                    <a href="/register" class="text-decoration-none">
+                                        <i class="bi bi-plus-circle"></i> Register the first user
+                                    </a>
+                                </p>
+                            </td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% if users %}
+    <div class="card-footer bg-white text-muted small">
+        <i class="bi bi-info-circle"></i>
+        Showing {{ users|length }} user(s). Passwords are masked for security.
+    </div>
+    {% endif %}
+</div>
+
+<!-- Back to Home -->
+<div class="text-center mt-4">
+    <a href="/" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left"></i> Back to Login
+    </a>
+</div>
+
+{% endblock %}

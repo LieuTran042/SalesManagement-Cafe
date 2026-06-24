@@ -1,0 +1,95 @@
+<!--
+==========================================
+File: templates/base.html
+Mô tả: Base template - all CSS hardcoded (no external dependencies)
+==========================================
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Coffee Shop{% endblock %}</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <style>
+        /* ===== Theme Coffee Colors ===== */
+        :root {
+            --coffee-brown: #6F4E37;
+            --coffee-light: #A67B5B;
+            --coffee-cream: #FFF8E7;
+            --coffee-dark: #4B3621;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #FFF8E7 100%);
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        /* ===== Coffee Button ===== */
+        .btn-coffee {
+            background: #6F4E37;
+            color: white;
+            border: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        .btn-coffee:hover {
+            background: #4B3621;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(111, 78, 55, 0.4);
+        }
+
+        /* ===== Login Card ===== */
+        .login-card {
+            border-radius: 20px;
+            background: white;
+            margin-top: 50px;
+        }
+        .coffee-icon {
+            font-size: 4rem;
+            color: #6F4E37;
+        }
+
+        /* ===== Form ===== */
+        .form-control:focus {
+            border-color: #A67B5B;
+            box-shadow: 0 0 0 0.2rem rgba(166, 123, 91, 0.25);
+        }
+        .form-label {
+            font-weight: 500;
+            color: #4B3621;
+        }
+
+        /* ===== Inline Error ===== */
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #842029;
+            border: 1px solid #f5c2c7;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            padding: 0.75rem 1rem;
+            margin-bottom: 1rem;
+        }
+        .alert-danger i {
+            color: #dc3545;
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+
+<main>
+    {% block content %}{% endblock %}
+</main>
+
+</body>
+</html>

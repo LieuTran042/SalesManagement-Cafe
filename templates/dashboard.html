@@ -1,0 +1,99 @@
+<!--
+==========================================
+File: templates/dashboard.html
+Mô tả: Trang dashboard - hiển thị tổng quan
+==========================================
+-->
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Coffee Shop{% endblock %}
+
+{% block content %}
+<div class="welcome-banner text-white p-4 rounded-3 mb-4 shadow">
+    <h2 class="mb-0">
+        <i class="bi bi-hand-thumbs-up"></i>
+        Xin chào, {{ username }}!
+    </h2>
+    <p class="mb-0 mt-2 opacity-75">Chào mừng bạn đến với hệ thống quản lý Coffee Shop</p>
+</div>
+
+<!-- Cards thống kê -->
+<div class="row g-4 mb-4">
+    <div class="col-md-3 col-sm-6">
+        <div class="card stat-card border-0 shadow-sm h-100">
+            <div class="card-body text-center">
+                <i class="bi bi-basket-fill stat-icon text-success"></i>
+                <h3 class="mt-2 mb-0">{{ total_ingredients }}</h3>
+                <p class="text-muted mb-0">Nguyên liệu</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 col-sm-6">
+        <div class="card stat-card border-0 shadow-sm h-100">
+            <div class="card-body text-center">
+                <i class="bi bi-cup-straw stat-icon text-warning"></i>
+                <h3 class="mt-2 mb-0">{{ total_products }}</h3>
+                <p class="text-muted mb-0">Sản phẩm</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 col-sm-6">
+        <div class="card stat-card border-0 shadow-sm h-100">
+            <div class="card-body text-center">
+                <i class="bi bi-receipt stat-icon text-primary"></i>
+                <h3 class="mt-2 mb-0">{{ total_orders }}</h3>
+                <p class="text-muted mb-0">Tổng đơn hàng</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 col-sm-6">
+        <div class="card stat-card border-0 shadow-sm h-100">
+            <div class="card-body text-center">
+                <i class="bi bi-hourglass-split stat-icon text-danger"></i>
+                <h3 class="mt-2 mb-0">{{ pending_orders }}</h3>
+                <p class="text-muted mb-0">Đơn chờ xử lý</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Menu nhanh -->
+<div class="row g-4">
+    <div class="col-md-4">
+        <a href="{{ url_for('ingredients.list_ingredients') }}" class="text-decoration-none">
+            <div class="card menu-card border-0 shadow-sm h-100">
+                <div class="card-body text-center p-4">
+                    <i class="bi bi-basket3-fill display-4 text-success"></i>
+                    <h5 class="mt-3 text-dark">Quản lý nguyên liệu</h5>
+                    <p class="text-muted small">Thêm, sửa, xóa nguyên liệu trong kho</p>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-4">
+        <a href="{{ url_for('orders.list_orders') }}" class="text-decoration-none">
+            <div class="card menu-card border-0 shadow-sm h-100">
+                <div class="card-body text-center p-4">
+                    <i class="bi bi-cart-check-fill display-4 text-warning"></i>
+                    <h5 class="mt-3 text-dark">Quản lý đơn hàng</h5>
+                    <p class="text-muted small">Tạo và theo dõi đơn hàng</p>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card menu-card border-0 shadow-sm h-100">
+            <div class="card-body text-center p-4">
+                <i class="bi bi-graph-up-arrow display-4 text-info"></i>
+                <h5 class="mt-3 text-dark">Báo cáo doanh thu</h5>
+                <p class="text-muted small">Xem thống kê doanh thu (sắp có)</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

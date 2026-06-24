@@ -1,0 +1,136 @@
+<!--
+==========================================
+File: templates/register.html
+Mô tả: Register/Sign Up page - English version
+       - Validates email format (no email verification sent)
+       - Validates password match
+       - Validates password length (min 6 chars)
+       - Validates username uniqueness (shown after submit)
+==========================================
+-->
+{% extends "base.html" %}
+
+{% block title %}Sign Up - Coffee Shop{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+
+        <div class="card login-card shadow-lg border-0">
+            <div class="card-body p-5">
+
+                <!-- Logo / Title -->
+                <div class="text-center mb-4">
+                    <i class="bi bi-person-plus-fill coffee-icon"></i>
+                    <h3 class="fw-bold mt-3">CREATE ACCOUNT</h3>
+                    <p class="text-muted">Sign up to start ordering coffee</p>
+                </div>
+
+                <!-- Inline Error Message (red) -->
+                {% if error %}
+                <div class="alert alert-danger d-flex align-items-center" role="alert">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                    <div>{{ error }}</div>
+                </div>
+                {% endif %}
+
+                <!-- Inline Success Message (green) -->
+                {% if success %}
+                <div class="alert alert-success d-flex align-items-center" role="alert"
+                     style="background-color: #d1e7dd; color: #0f5132; border: 1px solid #badbcc; border-radius: 10px;">
+                    <i class="bi bi-check-circle-fill me-2"></i>
+                    <div>{{ success }}</div>
+                </div>
+                {% endif %}
+
+                <!-- Registration Form -->
+                <form method="POST" action="/register">
+
+                    <!-- Username Field -->
+                    <div class="mb-3">
+                        <label class="form-label">
+                            <i class="bi bi-person"></i> Username
+                            <span class="text-danger">*</span>
+                        </label>
+                        <input type="text" name="username"
+                               class="form-control form-control-lg"
+                               placeholder="Choose a username"
+                               value="{{ username or '' }}"
+                               minlength="3" maxlength="50"
+                               required autofocus>
+                        <small class="text-muted">3-50 characters, must be unique</small>
+                    </div>
+
+                    <!-- Email Field -->
+                    <div class="mb-3">
+                        <label class="form-label">
+                            <i class="bi bi-envelope"></i> Email
+                            <span class="text-danger">*</span>
+                        </label>
+                        <input type="email" name="email"
+                               class="form-control form-control-lg"
+                               placeholder="example@email.com"
+                               value="{{ email or '' }}"
+                               required>
+                        <small class="text-muted">Must be a valid email format (e.g. user@gmail.com)</small>
+                    </div>
+
+                    <!-- Password Field -->
+                    <div class="mb-3">
+                        <label class="form-label">
+                            <i class="bi bi-lock"></i> Password
+                            <span class="text-danger">*</span>
+                        </label>
+                        <input type="password" name="password" id="passwordInput"
+                               class="form-control form-control-lg"
+                               placeholder="At least 6 characters"
+                               minlength="6" required>
+                        <small class="text-muted">Minimum 6 characters</small>
+                    </div>
+
+                    <!-- Confirm Password Field -->
+                    <div class="mb-4">
+                        <label class="form-label">
+                            <i class="bi bi-lock-fill"></i> Confirm Password
+                            <span class="text-danger">*</span>
+                        </label>
+                        <input type="password" name="confirm_password"
+                               class="form-control form-control-lg"
+                               placeholder="Re-enter your password"
+                               minlength="6" required>
+                        <small class="text-muted">Must match the password above</small>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn btn-coffee w-100 btn-lg">
+                        <i class="bi bi-check-circle"></i> Create Account
+                    </button>
+                </form>
+
+                <!-- Login Link -->
+                <div class="text-center mt-4">
+                    <small class="text-muted">Already have an account?</small>
+                    <a href="/" class="text-decoration-none fw-bold">
+                        Sign in
+                    </a>
+                </div>
+
+                <!-- View Users Link -->
+                <div class="text-center mt-2">
+                    <a href="/users" class="text-decoration-none small">
+                        <i class="bi bi-people"></i> View all users
+                    </a>
+                </div>
+
+                <!-- Note about email validation -->
+                <div class="text-center mt-3">
+                    <small class="text-muted">
+                        <i class="bi bi-info-circle"></i>
+                        Email format is validated only, no verification email sent
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

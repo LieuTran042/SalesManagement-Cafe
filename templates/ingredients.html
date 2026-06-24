@@ -1,0 +1,186 @@
+<!--
+==========================================
+File: templates/ingredients.html
+Mô tả: Trang quản lý nguyên liệu (CRUD)
+==========================================
+-->
+{% extends "base.html" %}
+
+{% block title %}Quản lý nguyên liệu - Coffee Shop{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0">
+        <i class="bi bi-basket-fill text-success"></i> Quản lý nguyên liệu
+    </h2>
+    <button class="btn btn-coffee" data-bs-toggle="modal" data-bs-target="#addModal">
+        <i class="bi bi-plus-circle"></i> Thêm nguyên liệu
+    </button>
+</div>
+
+<!-- Thanh tìm kiếm -->
+<form method="GET" class="mb-3">
+    <div class="input-group">
+        <input type="text" name="search" class="form-control" placeholder="Tìm kiếm nguyên liệu..."
+               value="{{ search }}">
+        <button class="btn btn-outline-secondary" type="submit">
+            <i class="bi bi-search"></i>
+        </button>
+        {% if search %}
+        <a href="{{ url_for('ingredients.list_ingredients') }}" class="btn btn-outline-danger">
+            <i class="bi bi-x"></i>
+        </a>
+        {% endif %}
+    </div>
+</form>
+
+<!-- Bảng danh sách nguyên liệu -->
+<div class="card shadow-sm border-0">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>#</th>
+                        <th>Tên nguyên liệu</th>
+                        <th>Số lượng</th>
+                        <th>Đơn vị</th>
+                        <th>Giá nhập</th>
+                        <th>Nhà cung cấp</th>
+                        <th>Cập nhật</th>
+                        <th class="text-center">Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if ingredients %}
+                        {% for item in ingredients %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td><strong>{{ item.name }}</strong></td>
+                            <td>
+                                <span class="badge bg-{% if item.quantity < 5 %}danger{% else %}success{% endif %}">
+                                    {{ item.quantity }}
+                                </span>
+                            </td>
+                            <td>{{ item.unit }}</td>
+                            <td>{{ "{:,.0f}".format(item.price) }} đ</td>
+                            <td>{{ item.supplier or '-' }}</td>
+                            <td><small class="text-muted">{{ item.updated_at }}</small></td>
+                            <td class="text-center">
+                                <button class="btn btn-sm btn-warning"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#editModal{{ item.id }}">
+                                    <i class="bi bi-pencil"></i>
+                                </button>
+                                <form method="POST" action="{{ url_for('ingredients.delete_ingredient', id=item.id) }}"
+                                      class="d-inline" onsubmit="return confirm('Bạn có chắc muốn xóa?')">
+                                    <button class="btn btn-sm btn-danger" type="submit">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+
+                        <!-- Modal sửa -->
+                        <div class="modal fade" id="editModal{{ item.id }}" tabindex="-1">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <form method="POST" action="{{ url_for('ingredients.edit_ingredient', id=item.id) }}">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Sửa nguyên liệu</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="mb-3">
+                                                <label class="form-label">Tên nguyên liệu *</label>
+                                                <input type="text" name="name" class="form-control"
+                                                       value="{{ item.name }}" required>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6 mb-3">
+                                                    <label class="form-label">Số lượng *</label>
+                                                    <input type="number" step="0.01" name="quantity" class="form-control"
+                                                           value="{{ item.quantity }}" required>
+                                                </div>
+                                                <div class="col-6 mb-3">
+                                                    <label class="form-label">Đơn vị *</label>
+                                                    <input type="text" name="unit" class="form-control"
+                                                           value="{{ item.unit }}" required>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Giá nhập (VNĐ)</label>
+                                                <input type="number" step="0.01" name="price" class="form-control"
+                                                       value="{{ item.price }}">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Nhà cung cấp</label>
+                                                <input type="text" name="supplier" class="form-control"
+                                                       value="{{ item.supplier or '' }}">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                                            <button type="submit" class="btn btn-coffee">Lưu thay đổi</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="8" class="text-center py-4 text-muted">
+                                <i class="bi bi-inbox display-4 d-block mb-2"></i>
+                                Chưa có nguyên liệu nào
+                            </td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Modal thêm mới -->
+<div class="modal fade" id="addModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="POST" action="{{ url_for('ingredients.add_ingredient') }}">
+                <div class="modal-header bg-coffee text-white">
+                    <h5 class="modal-title">Thêm nguyên liệu mới</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Tên nguyên liệu *</label>
+                        <input type="text" name="name" class="form-control" placeholder="VD: Cà phê Arabica" required>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 mb-3">
+                            <label class="form-label">Số lượng *</label>
+                            <input type="number" step="0.01" name="quantity" class="form-control" value="0" required>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label class="form-label">Đơn vị *</label>
+                            <input type="text" name="unit" class="form-control" placeholder="kg, lít, gói..." required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Giá nhập (VNĐ)</label>
+                        <input type="number" step="0.01" name="price" class="form-control" value="0">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Nhà cung cấp</label>
+                        <input type="text" name="supplier" class="form-control" placeholder="Tên nhà cung cấp">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="submit" class="btn btn-coffee">Thêm</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
