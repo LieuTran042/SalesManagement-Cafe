@@ -586,7 +586,7 @@ if __name__ == '__main__':
     print("     /ingredients       : List ingredients")
     print("     /ingredients/add   : Add ingredient")
     print("     /ingredients/edit/<id> : Edit ingredient")
-    print("     /ingredients/delete/<id> : Delete ingredient")
+    print("     /ingredients/delete/<id> : Delete ingredient")python
     print("   [Products]")
     print("     /products          : List products")
     print("     /products/add      : Add product")
