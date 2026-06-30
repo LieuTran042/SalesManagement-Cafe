@@ -1,7 +1,8 @@
 <!--
 ==========================================
 File: templates/login.html
-Mô tả: Login page - English with inline error message
+Mô tả: Login page - sử dụng flash messages (không còn inline error)
+       Flash messages sẽ hiển thị ở góc trên bên phải
 ==========================================
 -->
 {% extends "base.html" %}
@@ -21,14 +22,6 @@ Mô tả: Login page - English with inline error message
                     <h3 class="fw-bold mt-3">COFFEE SHOP</h3>
                     <p class="text-muted">Sign in to your account</p>
                 </div>
-
-                <!-- Inline Error Message -->
-                {% if error %}
-                <div class="alert alert-danger d-flex align-items-center" role="alert">
-                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
-                    <div>{{ error }}</div>
-                </div>
-                {% endif %}
 
                 <!-- Form -->
                 <form method="POST" action="/">
