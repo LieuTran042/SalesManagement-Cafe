@@ -119,10 +119,23 @@ def register():
         mysql.connection.commit()
         cur.close()
 
-        flash('Đăng ký thành công! Vui lòng đăng nhập.', 'success')
-        return redirect(url_for('auth.login'))
+        # Store username in session for the success page, then redirect
+        session['registered_username'] = username
+        return redirect(url_for('auth.register_success'))
 
     return render_template('register.html')
+
+
+@auth_bp.route('/register_success')
+def register_success():
+    """
+    Display registration success page.
+    Redirects to register page if accessed directly without registration.
+    """
+    username = session.pop('registered_username', None)
+    if not username:
+        return redirect(url_for('auth.register'))
+    return render_template('register_success.html', username=username)
 
 
 # ==========================================

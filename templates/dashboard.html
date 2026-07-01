@@ -1,7 +1,7 @@
 <!--
 ==========================================
 File: templates/dashboard.html
-Mô tả: Trang dashboard - hiển thị tổng quan
+Mô tả: Dashboard - Trang chủ sau khi đăng nhập
 ==========================================
 -->
 {% extends "base.html" %}
@@ -9,91 +9,103 @@ Mô tả: Trang dashboard - hiển thị tổng quan
 {% block title %}Dashboard - Coffee Shop{% endblock %}
 
 {% block content %}
-<div class="welcome-banner text-white p-4 rounded-3 mb-4 shadow">
-    <h2 class="mb-0">
-        <i class="bi bi-hand-thumbs-up"></i>
-        Xin chào, {{ username }}!
-    </h2>
-    <p class="mb-0 mt-2 opacity-75">Chào mừng bạn đến với hệ thống quản lý Coffee Shop</p>
+<div class="row">
+    <div class="col-12">
+        <!-- Welcome Banner -->
+        <div class="card border-0 shadow-sm mb-4" style="background: linear-gradient(135deg, #6F4E37, #A67B5B); border-radius: 15px;">
+            <div class="card-body p-4 text-white">
+                <h2 class="mb-0">
+                    <i class="bi bi-hand-thumbs-up"></i> Welcome, {{ username }}!
+                </h2>
+                <p class="mb-0 mt-2 opacity-75">
+                    <i class="bi bi-envelope"></i> {{ email }} |
+                    <i class="bi bi-shield-check"></i> Role: {{ role }}
+                </p>
+            </div>
+        </div>
+    </div>
 </div>
 
-<!-- Cards thống kê -->
-<div class="row g-4 mb-4">
+<!-- Stats Cards -->
+<div class="row g-3 mb-4">
     <div class="col-md-3 col-sm-6">
-        <div class="card stat-card border-0 shadow-sm h-100">
-            <div class="card-body text-center">
-                <i class="bi bi-basket-fill stat-icon text-success"></i>
+        <div class="card border-0 shadow-sm text-center" style="border-radius: 12px;">
+            <div class="card-body">
+                <i class="bi bi-basket-fill display-5 text-success"></i>
                 <h3 class="mt-2 mb-0">{{ total_ingredients }}</h3>
-                <p class="text-muted mb-0">Nguyên liệu</p>
+                <p class="text-muted mb-0 small">Ingredients</p>
             </div>
         </div>
     </div>
-
     <div class="col-md-3 col-sm-6">
-        <div class="card stat-card border-0 shadow-sm h-100">
-            <div class="card-body text-center">
-                <i class="bi bi-cup-straw stat-icon text-warning"></i>
+        <div class="card border-0 shadow-sm text-center" style="border-radius: 12px;">
+            <div class="card-body">
+                <i class="bi bi-cup-straw display-5 text-warning"></i>
                 <h3 class="mt-2 mb-0">{{ total_products }}</h3>
-                <p class="text-muted mb-0">Sản phẩm</p>
+                <p class="text-muted mb-0 small">Products</p>
             </div>
         </div>
     </div>
-
     <div class="col-md-3 col-sm-6">
-        <div class="card stat-card border-0 shadow-sm h-100">
-            <div class="card-body text-center">
-                <i class="bi bi-receipt stat-icon text-primary"></i>
+        <div class="card border-0 shadow-sm text-center" style="border-radius: 12px;">
+            <div class="card-body">
+                <i class="bi bi-receipt display-5 text-primary"></i>
                 <h3 class="mt-2 mb-0">{{ total_orders }}</h3>
-                <p class="text-muted mb-0">Tổng đơn hàng</p>
+                <p class="text-muted mb-0 small">Total Orders</p>
             </div>
         </div>
     </div>
-
     <div class="col-md-3 col-sm-6">
-        <div class="card stat-card border-0 shadow-sm h-100">
-            <div class="card-body text-center">
-                <i class="bi bi-hourglass-split stat-icon text-danger"></i>
+        <div class="card border-0 shadow-sm text-center" style="border-radius: 12px;">
+            <div class="card-body">
+                <i class="bi bi-hourglass-split display-5 text-danger"></i>
                 <h3 class="mt-2 mb-0">{{ pending_orders }}</h3>
-                <p class="text-muted mb-0">Đơn chờ xử lý</p>
+                <p class="text-muted mb-0 small">Pending Orders</p>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Menu nhanh -->
-<div class="row g-4">
+<!-- Quick Menu -->
+<div class="row g-3">
     <div class="col-md-4">
-        <a href="{{ url_for('ingredients.list_ingredients') }}" class="text-decoration-none">
-            <div class="card menu-card border-0 shadow-sm h-100">
+        <a href="/ingredients" class="text-decoration-none">
+            <div class="card border-0 shadow-sm h-100" style="border-radius: 12px; cursor: pointer; transition: transform 0.2s;">
                 <div class="card-body text-center p-4">
-                    <i class="bi bi-basket3-fill display-4 text-success"></i>
-                    <h5 class="mt-3 text-dark">Quản lý nguyên liệu</h5>
-                    <p class="text-muted small">Thêm, sửa, xóa nguyên liệu trong kho</p>
+                    <i class="bi bi-basket3-fill display-3 text-success"></i>
+                    <h5 class="mt-3 text-dark">Ingredients</h5>
+                    <p class="text-muted small mb-0">Manage coffee beans, milk, sugar...</p>
                 </div>
             </div>
         </a>
     </div>
-
     <div class="col-md-4">
-        <a href="{{ url_for('orders.list_orders') }}" class="text-decoration-none">
-            <div class="card menu-card border-0 shadow-sm h-100">
+        <a href="/products" class="text-decoration-none">
+            <div class="card border-0 shadow-sm h-100" style="border-radius: 12px; cursor: pointer; transition: transform 0.2s;">
                 <div class="card-body text-center p-4">
-                    <i class="bi bi-cart-check-fill display-4 text-warning"></i>
-                    <h5 class="mt-3 text-dark">Quản lý đơn hàng</h5>
-                    <p class="text-muted small">Tạo và theo dõi đơn hàng</p>
+                    <i class="bi bi-cup-hot-fill display-3 text-warning"></i>
+                    <h5 class="mt-3 text-dark">Products</h5>
+                    <p class="text-muted small mb-0">Manage coffee menu items</p>
                 </div>
             </div>
         </a>
     </div>
-
     <div class="col-md-4">
-        <div class="card menu-card border-0 shadow-sm h-100">
-            <div class="card-body text-center p-4">
-                <i class="bi bi-graph-up-arrow display-4 text-info"></i>
-                <h5 class="mt-3 text-dark">Báo cáo doanh thu</h5>
-                <p class="text-muted small">Xem thống kê doanh thu (sắp có)</p>
+        <a href="/orders" class="text-decoration-none">
+            <div class="card border-0 shadow-sm h-100" style="border-radius: 12px; cursor: pointer; transition: transform 0.2s;">
+                <div class="card-body text-center p-4">
+                    <i class="bi bi-receipt-cutoff display-3 text-primary"></i>
+                    <h5 class="mt-3 text-dark">Orders</h5>
+                    <p class="text-muted small mb-0">View and manage customer orders</p>
+                </div>
             </div>
-        </div>
+        </a>
     </div>
+</div>
+
+<div class="text-center mt-4">
+    <a href="/users" class="btn btn-outline-secondary">
+        <i class="bi bi-people"></i> View Users
+    </a>
 </div>
 {% endblock %}

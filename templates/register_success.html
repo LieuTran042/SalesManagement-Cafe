@@ -1,0 +1,55 @@
+<!--
+==========================================
+File: templates/register_success.html
+Description: Registration success notification page
+             Shows success message with two buttons:
+             - Go to Login page
+             - Stay on Register page
+==========================================
+-->
+{% extends "base.html" %}
+
+{% block title %}Registration Successful - Coffee Shop{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+
+        <div class="card login-card shadow-lg border-0">
+            <div class="card-body p-5">
+
+                <!-- Success Icon -->
+                <div class="text-center mb-4">
+                    <i class="bi bi-check-circle-fill" style="font-size: 5rem; color: #28a745;"></i>
+                    <h3 class="fw-bold mt-3 text-success">REGISTRATION SUCCESSFUL</h3>
+                    <p class="text-muted mt-2">
+                        Your account has been created successfully!<br>
+                        You can now log in with your credentials.
+                    </p>
+                </div>
+
+                <!-- Registered Info -->
+                <div class="alert alert-success text-center" role="alert">
+                    <i class="bi bi-person-check"></i>
+                    <strong>Welcome, {{ username }}!</strong><br>
+                    <small>Your account is ready to use.</small>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="d-grid gap-3 mt-4">
+                    <!-- Go to Login Button -->
+                    <a href="{{ url_for('login') }}" class="btn btn-coffee btn-lg">
+                        <i class="bi bi-box-arrow-in-right"></i> Go to Login Page
+                    </a>
+
+                    <!-- Stay on Register Button -->
+                    <a href="{{ url_for('register') }}" class="btn btn-outline-secondary btn-lg">
+                        <i class="bi bi-person-plus"></i> Stay on Register Page
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
