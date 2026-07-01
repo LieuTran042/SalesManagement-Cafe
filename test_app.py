@@ -167,9 +167,20 @@ def register():
         }
 
         flash(f'Account "{username}" created successfully!', 'success')
-        return redirect(url_for('register'))
+        session['registered_username'] = username
+        return redirect(url_for('register_success'))
 
     return render_template('register.html', username='', email='')
+
+
+# -------- REGISTER SUCCESS --------
+@app.route('/register_success')
+def register_success():
+    """Display registration success page."""
+    username = session.pop('registered_username', None)
+    if not username:
+        return redirect(url_for('register'))
+    return render_template('register_success.html', username=username)
 
 
 # -------- DASHBOARD --------
@@ -599,4 +610,4 @@ if __name__ == '__main__':
     print("=" * 60)
     print(" Data: In-memory (reset on restart)")
     print("=" * 60)
-    app.run(host='0.0.0.0', port=5000, debug=False)
+    app.run(host='0.0.0.0', port=5000, debug=True)
