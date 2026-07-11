@@ -1,0 +1,92 @@
+# ==========================================
+# .gitignore - SalesManagement-Cafe (Flask)
+# ==========================================
+
+# ------------------------------------------
+# Python bytecode & cache
+# ------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+
+# ------------------------------------------
+# Virtual environments
+# ------------------------------------------
+venv/
+.venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# ------------------------------------------
+# Environment variables & secrets
+# ------------------------------------------
+.env
+.env.*
+!.env.example
+*.secret
+secrets.json
+
+# ------------------------------------------
+# Flask instance folder (runtime config, SQLite fallback)
+# ------------------------------------------
+instance/
+*.db
+*.sqlite
+*.sqlite3
+
+# ------------------------------------------
+# Logs
+# ------------------------------------------
+*.log
+logs/
+
+# ------------------------------------------
+# Testing & coverage
+# ------------------------------------------
+.pytest_cache/
+.coverage
+htmlcov/
+coverage.xml
+*.cover
+nosetests.xml
+test-results/
+
+# ------------------------------------------
+# Distribution / packaging
+# ------------------------------------------
+dist/
+build/
+*.egg-info/
+*.egg
+MANIFEST
+
+# ------------------------------------------
+# IDEs & editors
+# ------------------------------------------
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.swp
+*.bak
+*.orig
+
+# ------------------------------------------
+# OS-specific
+# ------------------------------------------
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ------------------------------------------
+# Uploads / user-generated content
+# ------------------------------------------
+uploads/
+static/uploads/

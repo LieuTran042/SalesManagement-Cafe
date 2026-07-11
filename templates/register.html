@@ -61,11 +61,24 @@ Mô tả: Register page - sử dụng flash messages (không còn inline error)
                             <i class="bi bi-lock"></i> Password
                             <span class="text-danger">*</span>
                         </label>
-                        <input type="password" name="password" id="passwordInput"
-                               class="form-control form-control-lg"
-                               placeholder="At least 6 characters"
-                               minlength="6" required>
-                        <small class="text-muted">Minimum 6 characters</small>
+                        <div class="input-group">
+                            <input type="password" name="password" id="passwordInput"
+                                   class="form-control form-control-lg"
+                                   placeholder="At least 6 characters"
+                                   minlength="6" required>
+                            <button class="btn btn-outline-secondary" type="button"
+                                    onclick="togglePassword('passwordInput', this)"
+                                    aria-label="Toggle password visibility">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                        </div>
+                        <small class="text-muted d-block mt-1">Password must contain at least 6 characters, including:</small>
+                        <ul class="text-muted small mb-0 ps-3">
+                            <li>1 uppercase letter (A–Z)</li>
+                            <li>1 lowercase letter (a–z)</li>
+                            <li>1 digit (0–9)</li>
+                            <li>1 special character (!@#$%...)</li>
+                        </ul>
                     </div>
 
                     <!-- Confirm Password Field -->
@@ -74,10 +87,17 @@ Mô tả: Register page - sử dụng flash messages (không còn inline error)
                             <i class="bi bi-lock-fill"></i> Confirm Password
                             <span class="text-danger">*</span>
                         </label>
-                        <input type="password" name="confirm_password"
-                               class="form-control form-control-lg"
-                               placeholder="Re-enter your password"
-                               minlength="6" required>
+                        <div class="input-group">
+                            <input type="password" name="confirm_password" id="confirmPasswordInput"
+                                   class="form-control form-control-lg"
+                                   placeholder="Re-enter your password"
+                                   minlength="6" required>
+                            <button class="btn btn-outline-secondary" type="button"
+                                    onclick="togglePassword('confirmPasswordInput', this)"
+                                    aria-label="Toggle confirm password visibility">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                        </div>
                         <small class="text-muted">Must match the password above</small>
                     </div>
 
@@ -99,7 +119,7 @@ Mô tả: Register page - sử dụng flash messages (không còn inline error)
                 <div class="text-center mt-3">
                     <small class="text-muted">
                         <i class="bi bi-info-circle"></i>
-                        Email format is validated only, no verification email sent
+                       
                     </small>
                 </div>
             </div>

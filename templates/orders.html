@@ -107,6 +107,10 @@ Mô tả: Quản lý đơn hàng
                             </td>
                             <td><small>{{ order.created_by }}</small></td>
                             <td class="text-center">
+                                <!-- View Detail -->
+                                <a href="/orders/{{ order.id }}" class="btn btn-sm btn-outline-primary me-1" title="View Detail">
+                                    <i class="bi bi-eye"></i>
+                                </a>
                                 <!-- Status update -->
                                 <form method="POST" action="/orders/update-status/{{ order.id }}" class="d-inline">
                                     <select name="status" class="form-select form-select-sm d-inline-block w-auto" onchange="this.form.submit()" style="width: auto !important;">

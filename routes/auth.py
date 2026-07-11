@@ -89,8 +89,26 @@ def register():
             flash('Mật khẩu xác nhận không khớp!', 'danger')
             return redirect(url_for('auth.register'))
 
+        # --- Validate password strength ---
         if len(password) < 6:
-            flash('Mật khẩu phải có ít nhất 6 ký tự!', 'danger')
+            flash('Password must be at least 6 characters!', 'danger')
+            return redirect(url_for('auth.register'))
+
+        if not any(c.isupper() for c in password):
+            flash('Password must contain at least 1 uppercase letter!', 'danger')
+            return redirect(url_for('auth.register'))
+
+        if not any(c.islower() for c in password):
+            flash('Password must contain at least 1 lowercase letter!', 'danger')
+            return redirect(url_for('auth.register'))
+
+        if not any(c.isdigit() for c in password):
+            flash('Password must contain at least 1 digit!', 'danger')
+            return redirect(url_for('auth.register'))
+
+        special_characters = "!@#$%^&*()_+-=[]{}|;':\",./<>?`~"
+        if not any(c in special_characters for c in password):
+            flash('Password must contain at least 1 special character!', 'danger')
             return redirect(url_for('auth.register'))
 
         # --- Kiểm tra trùng lặp ---

@@ -155,6 +155,23 @@ def register():
             flash('Password must be at least 6 characters.', 'danger')
             return render_template('register.html', username=username, email=email)
 
+        if not any(c.isupper() for c in password):
+            flash('Password is case sensitive and must contain lower case characters, upper case characters, special characters and numbers. Its length should be between 6 and 32 characters.', 'danger')
+            return render_template('register.html', username=username, email=email)
+
+        if not any(c.islower() for c in password):
+            flash('Password is case sensitive and must contain lower case characters, upper case characters, special characters and numbers. Its length should be between 6 and 32 characters.', 'danger')
+            return render_template('register.html', username=username, email=email)
+
+        if not any(c.isdigit() for c in password):
+            flash('Password is case sensitive and must contain lower case characters, upper case characters, special characters and numbers. Its length should be between 6 and 32 characters.', 'danger')
+            return render_template('register.html', username=username, email=email)
+
+        special_characters = "!@#$%^&*()_+-=[]{}|;':\",./<>?`~"
+        if not any(c in special_characters for c in password):
+            flash('Password is case sensitive and must contain lower case characters, upper case characters, special characters and numbers. Its length should be between 6 and 32 characters.', 'danger')
+            return render_template('register.html', username=username, email=email)
+
         if password != confirm_password:
             flash('Passwords do not match.', 'danger')
             return render_template('register.html', username=username, email=email)
